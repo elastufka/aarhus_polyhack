@@ -26,8 +26,8 @@ app.layout = html.Div(children=[
     html.H1(children='Buses for a Better Aarhus',style={'margin-top': '50px','margin-bottom': '25px', 'display': 'inline-block','font-size': '3em'}),
         html.Div(className='row',children=[
                 html.Div(className='one column div-user-controls'),
-                html.Div(className='ten columns div-for-charts bg-grey',children=[html.Div(id='map'),dcc.Slider(id='hour',min=0,max=24,step=1,marks={i:str(i) for i in range(0,25)},value=0),
-                html.H3("Time of Day") ],style={'height': '100%', 'display': 'inline-block'})
+                #html.Div(className='ten columns div-for-charts bg-grey',children=[html.Div(id='map'),dcc.Slider(id='hour',min=0,max=24,step=1,marks={i:str(i) for i in range(0,25)},value=0),
+                #html.H3("Time of Day") ],style={'height': '100%', 'display': 'inline-block'})
                ]),
         html.Div(className='row',children=[
             html.Div(className='one column div-user-controls'),
@@ -61,15 +61,15 @@ app.layout = html.Div(children=[
 
 ############ Transmission ###############
 @app.callback(
-    [Output('map', 'children'),Output('scatter', 'figure'),Output('buses', 'figure'),Output('dfig', 'figure'),Output('passengers', 'figure')],
-    Input('hour', 'value'))
+    [Output('map', 'children'),Output('scatter', 'figure'),Output('buses', 'figure'),Output('dfig', 'figure'),Output('passengers', 'figure')])#,
+    #Input('hour', 'value'))
     #Input('attenuator', 'value'),
     #Input('athick', 'value'),
     #Input('detector', 'value'),
     #Input('dthick', 'value')
 
 
-def update_graph(hour):#,attenuator,athick,detector,dthick):
+def update_graph(hour=0):#,attenuator,athick,detector,dthick):
 
     #mfig = go.Figure() #fake map for now
 
