@@ -62,7 +62,7 @@ app.layout = html.Div(children=[
 ############ Transmission ###############
 @app.callback(
     [Output('map', 'children'),Output('scatter', 'figure'),Output('buses', 'figure'),Output('dfig', 'figure'),Output('passengers', 'figure')],
-    Input('hour', 'value'))
+    [Input('hour', 'value')])
     #Input('attenuator', 'value'),
     #Input('athick', 'value'),
     #Input('detector', 'value'),
