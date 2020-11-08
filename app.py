@@ -21,6 +21,16 @@ busdf=pd.read_json('data/buses.json')#pd.DataFrame({'hour':[np.random.randint(0,
 
 pass_df=pd.read_json('data/passengers.json')#pd.DataFrame({'hour':[np.random.randint(0,high=24) for i in range(0,5000)],'passenger_id':[np.random.randint(0,high=500) for i in range(0,5000)],'status':[np.random.randint(0,high=3) for i in range(0,5000)]})#pd.read_csv('data/buses.csv')
 
+total_km=[]
+occ=[]
+pw,pr,pde=[],[],[]
+for h in range(0,25):
+    total_km.append(busdf.where(busdf.hour == h).dropna().total_km.sum())
+    occ.append(busdf.where(busdf.hour == h).dropna().occupancy.mean())
+    pw.append(pass_df.where(pass_df.hs == h).dropna().hs.count())
+    pr.append(pass_df.where(pass_df.hb == h).dropna().hb.count())
+    pde.append(pass_df.where(pass_df.hd == h).dropna().hd.count())
+
 
 app.layout = html.Div(children=[
     html.H1(children='Buses for a Better Aarhus',style={'margin-top': '50px','margin-bottom': '25px', 'display': 'inline-block','font-size': '3em'}),
@@ -54,6 +64,7 @@ app.layout = html.Div(children=[
     html.Div(className='row',children=[html.Div(children=[
         html.P(""),
         html.P("Polyhack 2020, Team Bus to Green Aarhus"),
+        html.P("Data sample from 3-hour snapshot of preliminary SUMO simulation"),
         html.P("V. Contucci, E. Lastufka, Y. Müller, P. Schärli"),
         html.P("contact: elastufka@gmail.com")],style={'margin-left':'20px'})])
 ])
@@ -87,15 +98,7 @@ def update_graph(hour):#,attenuator,athick,detector,dthick):
     #bar chart - buses by ID and occupancy
     bydf=busdf.where(busdf.hour == hour).dropna()
     
-    total_km=[]
-    occ=[]
-    pw,pr,pde=[],[],[]
-    for h in range(0,25):
-        total_km.append(busdf.where(busdf.hour == h).dropna().total_km.sum())
-        occ.append(busdf.where(busdf.hour == h).dropna().occupancy.mean())
-        pw.append(pass_df.where(pass_df.hs == h).dropna().hs.count())
-        pr.append(pass_df.where(pass_df.hb == h).dropna().hb.count())
-        pde.append(pass_df.where(pass_df.hd == h).dropna().hd.count())
+    
         #paban.append(pass_df.query('hour_board == -1 & hour_spawn == -1 & hour_drop == -1').dropna().hour_board.count()) #never got on bus
         #print(pw,pr,pde,paban)
 
